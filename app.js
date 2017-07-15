@@ -19,6 +19,14 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+var git = require('simple-git');
+
+git()
+  .add('./monitoreo')
+  .commit('updating files')
+  .push('origin', 'master', function (res) {
+    console.log(res);
+  });
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
