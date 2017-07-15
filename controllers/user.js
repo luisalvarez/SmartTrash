@@ -3,6 +3,7 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const readFiles = require('../models/File');
 
 /**
  * GET /login
@@ -117,6 +118,27 @@ exports.getAccount = (req, res) => {
   res.render('account/profile', {
     title: 'Account Management'
   });
+};
+
+/**
+ * GET /account
+ * Profile page.
+ */
+exports.getFileList = (req, res) => {
+  var data = {};
+  readFiles('public/fonts/', function (filename, content) {
+    data[filename] = content;
+    console.log(filename);
+
+  }, function (err) {
+    throw err;
+  }, function(){
+    res.render('account/files', {
+      title: 'Files Management',
+      data:data
+    });
+  });
+  
 };
 
 /**

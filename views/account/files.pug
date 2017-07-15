@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 Lista de archivo de monitoreo
+  .page-header
+    h3 Archivos
+    ul
+      each val, name in data
+        li 
+          a(href='/monitoreo/'+name)= name
