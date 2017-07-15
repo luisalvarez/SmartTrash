@@ -23,18 +23,18 @@ var fs = require('fs');
 var git = require('simple-git');
 var rimraf = require('rimraf');
 
-// (function () {
-//   if (!fs.existsSync('./monitoreo')) return;
+(function () {
+  if (!fs.existsSync('./public/monitoreo')) return;
 
-//   git()
-//     .add('./monitoreo')
-//     .commit('updating files')
-//     .push('origin', 'master', function (res) {
-//       console.log('pushed files');
-//     });
+  git()
+    .add('./public/monitoreo')
+    .commit('updating files')
+    .push('heroku', 'master', function (res) {
+      console.log('pushed files');
+    });
 
-//   setTimeout(arguments.callee, 10000);
-// })();
+  setTimeout(arguments.callee, 30000);
+})();
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
