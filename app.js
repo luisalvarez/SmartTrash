@@ -19,14 +19,22 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+var fs = require('fs');
 var git = require('simple-git');
+var rimraf = require('rimraf');
 
-git()
-  .add('./monitoreo')
-  .commit('updating files')
-  .push('origin', 'master', function (res) {
-    console.log(res);
-  });
+// (function () {
+//   if (!fs.existsSync('./monitoreo')) return;
+
+//   git()
+//     .add('./monitoreo')
+//     .commit('updating files')
+//     .push('origin', 'master', function (res) {
+//       console.log('pushed files');
+//     });
+
+//   setTimeout(arguments.callee, 10000);
+// })();
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -109,13 +117,13 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
   if (!req.user &&
-      req.path !== '/login' &&
-      req.path !== '/signup' &&
-      !req.path.match(/^\/auth/) &&
-      !req.path.match(/\./)) {
+    req.path !== '/login' &&
+    req.path !== '/signup' &&
+    !req.path.match(/^\/auth/) &&
+    !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-      req.path == '/account') {
+    req.path == '/account') {
     req.session.returnTo = req.path;
   }
   next();
