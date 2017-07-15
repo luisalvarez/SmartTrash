@@ -126,7 +126,7 @@ exports.getAccount = (req, res) => {
  */
 exports.getFileList = (req, res) => {
   var data = {};
-  readFiles('public/fonts/', function (filename, content) {
+  readFiles('public/monitoreo/', function (filename, content) {
     data[filename] = content;
     console.log(filename);
 
